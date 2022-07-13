@@ -3,17 +3,17 @@ package com.cognixia.jump.model;
 import java.io.Serializable;
 
 public class User implements Serializable{
-	private static final long serialVersion = 1L;
+	private static final int serialVersion = 1;
 	
-	private long user_id;
+	private int user_id;
 	private String username;
 	private String password;
 	
 	public User() {
-		this(-1L, "N/A", "N/A");
+		this(-1, "N/A", "N/A");
 	}
 	
-	public User(long user_id, String username, String password) {
+	public User(int user_id, String username, String password) {
 		super();
 		this.user_id = user_id;
 		this.username = username;
@@ -25,7 +25,7 @@ public class User implements Serializable{
 		return user_id;
 	}
 	
-	public void setUser_id(long user_id) {
+	public void setUser_id(int user_id) {
 		this.user_id = user_id;
 	}
 	
