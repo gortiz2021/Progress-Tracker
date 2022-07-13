@@ -7,6 +7,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.cognixia.jump.ConnectionManager;
+import com.cognixia.jump.exceptions.InputOver255CharactersException;
 
 public class Menu {
 	private static final int signed_in_options = 4;
@@ -35,10 +36,22 @@ public class Menu {
 			switch (response) {
 			case 1:
 				scan.nextLine();
-				System.out.println("Enter username: ");
-				String getUsername = scan.nextLine();
-				System.out.println("Enter password: ");
-				String getPassword = scan.nextLine();
+				String getUsername = "";
+				String getPassword = "";
+				try {
+					System.out.println("Enter username: ");
+					getUsername = scan.nextLine();
+					if (getUsername.length() > 255)
+						throw new InputOver255CharactersException(getUsername.length());
+					System.out.println("Enter password: ");
+					scan.nextLine();
+					getPassword = scan.nextLine();
+					if (getPassword.length() > 255)
+						throw new InputOver255CharactersException(getPassword.length());
+				} catch (InputOver255CharactersException e){
+					System.out.println("Input over max length (255 characters)");
+				}
+				
 				try {
 					query = "select * from user where username = username";
 					PreparedStatement pstmt1 = conn.prepareStatement("select username, password from `user` where username = ?;");
