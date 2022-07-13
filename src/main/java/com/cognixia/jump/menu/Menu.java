@@ -1,11 +1,18 @@
 package com.cognixia.jump.menu;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-	private static final int options = 4;
-
+	private static final int signed_in_options = 4;
+	private static final int log_in_options =2;
 	public static void main(String[] args) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "";
 		Scanner scan = new Scanner(System.in);
 		
 		
@@ -17,12 +24,23 @@ public class Menu {
 		System.out.println();
 
 		while (cond) {
-			listOptions();
-			int response = getResponse(options, scan);
+			LoginOptions();
+			int response = getResponse(log_in_options, scan);
 
 			switch (response) {
 			case 1:
-				break;
+				System.out.println("Enter username: ");
+				String getUsername = scan.nextLine();
+				System.out.println("Enter password: ");
+				String getPassword = scan.nextLine();
+				try {
+					//query = "select * from user where ?"
+					
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 			case 2:
 				break;
 			case 3:
@@ -34,8 +52,19 @@ public class Menu {
 
 	}
 
+	
+	private static void LoginOptions() {
+		System.out.println("========================OPTIONS===========================");
+		System.out.println("==========================================================");
+		System.out.println("Please select an option: ");
+		System.out.println("#1: Log In");
+		System.out.println("#2: Exit System");
+	}
+	
+	
+	
 //console menu	
-	private static void listOptions() {
+	private static void SignedInlistOptions() {
 		System.out.println("========================OPTIONS===========================");
 		System.out.println("==========================================================");
 		System.out.println("Please select an option: ");
