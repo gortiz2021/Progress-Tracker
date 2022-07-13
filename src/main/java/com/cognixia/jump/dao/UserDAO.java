@@ -16,7 +16,7 @@ public class UserDAO implements UDAO<User> {
 	String query = "";
 
 	@Override
-	public User findbyId(long id) {
+	public User findbyId(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -40,7 +40,7 @@ public class UserDAO implements UDAO<User> {
 	}
 
 	@Override
-	public boolean deleteById(long id) {
+	public boolean deleteById(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

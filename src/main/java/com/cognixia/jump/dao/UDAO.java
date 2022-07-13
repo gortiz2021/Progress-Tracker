@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface UDAO<U extends Serializable> {
 	//get one by id
-	U findbyId(long id);
+	U findbyId(int id);
 	
 	//get all
 	List<U> findAll();
@@ -15,7 +15,7 @@ public interface UDAO<U extends Serializable> {
 	//update to db
 	boolean update(U entity);
 	//delete by id
-	boolean deleteById(long id);
+	boolean deleteById(int id);
 
 	
 	
