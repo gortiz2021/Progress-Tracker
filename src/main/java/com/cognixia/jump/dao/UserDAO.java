@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import com.cognixia.jump.ConnectionManager;
-import com.cognixia.jump.jdbc.connection.ConnectionManagerWithProps;
 import com.cognixia.jump.model.User;
 
 public class UserDAO implements UDAO<User> {
