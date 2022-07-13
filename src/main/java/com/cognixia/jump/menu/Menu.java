@@ -43,10 +43,14 @@ public class Menu {
 					getUsername = scan.nextLine();
 					if (getUsername.length() > 255)
 						throw new InputOver255CharactersException(getUsername.length());
+					System.out.println("Enter password: ");
+					scan.nextLine();
+					getPassword = scan.nextLine();
+					if (getPassword.length() > 255)
+						throw new InputOver255CharactersException(getPassword.length());
 				} catch (InputOver255CharactersException e){
 					System.out.println("Input over max length (255 characters)");
 				}
-				System.out.println("Enter password: ");
 				scan.nextLine();
 				getPassword = scan.nextLine();
 				try {
