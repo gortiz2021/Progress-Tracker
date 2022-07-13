@@ -141,20 +141,64 @@ public class Menu {
 
 //console menu	
 	private static void SignedInlistOptions() {
-
+		boolean ptcond = true;
+		
 		System.out.println("====================PROGRESS TRACKER======================");
 		System.out.println("==========================================================");
 		System.out.println("Please select an option: ");
 		// view progess
-		System.out.println("#1: Replace with option 1");
+		System.out.println("#1: Choose show to check progress");
+
 		// update tracker
-		System.out.println("#2: Replace with option 2");
+		System.out.println("#2: Update show progress");
+
+					
 		// view completed
-		System.out.println("#3: Replace with option 3");
+		System.out.println("#3: View completed shows");
+		//exit system
+		System.out.println("#4: Exit the system.");
 		System.out.println("==========================================================");
 		System.out.println("==========================================================");
 		System.out.println();
 
+		try {
+			
+			while(ptcond) {
+				Scanner scan = new Scanner(System.in);
+				int response = getResponse(signed_in_options, scan);
+				switch (response) {
+
+				case 1:
+					System.out.println("This is your progress");
+					break;
+				case 2:
+					System.out.println("This will allow you to update progress");
+					break;
+				case 3:
+					System.out.println("This will all you to view completed shows");
+					break;
+				case 4:
+					ptcond = false;
+					exit(0);
+				}
+				
+				
+				
+				
+				
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	// gets menu response
