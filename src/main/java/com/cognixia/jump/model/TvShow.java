@@ -1,4 +1,4 @@
-package com.cognixia.jump.models;
+package com.cognixia.jump.model;
 
 public class TvShow {
 	

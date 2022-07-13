@@ -3,7 +3,7 @@ package com.cognixia.jump.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import com.cognixia.jump.models.TvShow;
+import com.cognixia.jump.model.TvShow;
 
 public class TvShowDAO {
 	
