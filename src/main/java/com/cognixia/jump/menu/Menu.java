@@ -6,15 +6,20 @@ import java.sql.Statement;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.cognixia.jump.ConnectionManager;
+
 public class Menu {
 	private static final int signed_in_options = 4;
 	private static final int log_in_options =2;
+	
+	private static Connection conn = ConnectionManager.getConnection();
+	
 	public static void main(String[] args) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = "";
 		Scanner scan = new Scanner(System.in);
-		
+	
 		
 		boolean cond = true;
 		System.out.println();
@@ -29,15 +34,31 @@ public class Menu {
 
 			switch (response) {
 			case 1:
+				scan.nextLine();
 				System.out.println("Enter username: ");
 				String getUsername = scan.nextLine();
 				System.out.println("Enter password: ");
+				scan.nextLine();
 				String getPassword = scan.nextLine();
 				try {
-					//query = "select * from user where ?"
+					query = "select * from user where getUsername = username";
+					PreparedStatement pstmt1 = conn.prepareStatement("select * from user where user_username = ?;");
+					ResultSet rs1 = pstmt1.executeQuery();
+					String user_name = rs.getString("username");
+					String pass_word = rs.getString("password");
+					if (getUsername == user_name) {
+						System.out.println("Log In Successful");
+						SignedInlistOptions();
+					}
+					else {
+							System.out.println("Log in not successful! Please try again!");
+							LoginOptions();
+						}
+					}
 					
 					
-				} catch (Exception e) {
+					
+				catch (Exception e) {
 					e.printStackTrace();
 				}
 				
