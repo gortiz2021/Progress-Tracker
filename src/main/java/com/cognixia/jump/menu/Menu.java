@@ -51,8 +51,6 @@ public class Menu {
 				} catch (InputOver255CharactersException e){
 					System.out.println("Input over max length (255 characters)");
 				}
-				scan.nextLine();
-				getPassword = scan.nextLine();
 				try {
 					query = "select * from user where getUsername = username";
 					PreparedStatement pstmt1 = conn.prepareStatement("select * from user where user_username = ?;");
