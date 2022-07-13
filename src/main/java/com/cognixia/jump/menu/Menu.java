@@ -38,24 +38,30 @@ public class Menu {
 				System.out.println("Enter username: ");
 				String getUsername = scan.nextLine();
 				System.out.println("Enter password: ");
-				scan.nextLine();
 				String getPassword = scan.nextLine();
 				try {
-					query = "select * from user where getUsername = username";
-					PreparedStatement pstmt1 = conn.prepareStatement("select * from user where user_username = ?;");
-					ResultSet rs1 = pstmt1.executeQuery();
-					String user_name = rs.getString("username");
-					String pass_word = rs.getString("password");
-					if (getUsername == user_name) {
+					query = "select * from user where username = username";
+					PreparedStatement pstmt1 = conn.prepareStatement("select username, password from `user` where username = ?;");
+					pstmt1.setString(1, getUsername);
+					ResultSet rs1 = pstmt1.executeQuery(query);
+					while(rs1.next()) {
+					String user_name = rs1.getString("username");
+					String pass_word = rs1.getString("password");
+					
+					if (getUsername == user_name && getPassword == pass_word) {
 						System.out.println("Log In Successful");
 						SignedInlistOptions();
+						
 					}
+					
 					else {
 							System.out.println("Log in not successful! Please try again!");
 							LoginOptions();
-						}
 					}
-					
+					break;
+					}
+				}
+				
 					
 					
 				catch (Exception e) {
@@ -89,8 +95,11 @@ public class Menu {
 		System.out.println("========================OPTIONS===========================");
 		System.out.println("==========================================================");
 		System.out.println("Please select an option: ");
+		//view progess
 		System.out.println("#1: Replace with option 1");
+		//update tracker
 		System.out.println("#2: Replace with option 2");
+		//view completed
 		System.out.println("#3: Replace with option 3");
 		System.out.println("==========================================================");
 		System.out.println("==========================================================");
