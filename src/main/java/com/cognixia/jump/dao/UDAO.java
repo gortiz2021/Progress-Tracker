@@ -16,6 +16,8 @@ public interface UDAO<U extends Serializable> {
 	boolean update(U entity);
 	//delete by id
 	boolean deleteById(long id);
+
+	
 	
 	
 	
