@@ -1,4 +1,4 @@
-package com.cognixia.jump;
+package com.cognixia.jump.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,8 +10,8 @@ public class ConnectionManager {
 	private static final String URL = "jdbc:mysql://localhost:3306/progress_tracker";
 	
 	//ENTER YOUR OWN USERNAME AND PASSWORD TO YOUR MYSQL SERVER!!!!!!
-	private static final String USERNAME = "";
-	private static final String PASSWORD = "";
+	private static final String USERNAME = "root";
+	private static final String PASSWORD = "kQlr6W25Iifoks6Xm6eg";
 
 	public static Connection getConnection() {
 		
@@ -30,9 +30,7 @@ public class ConnectionManager {
 		
 	}
 
-	public static void main(String[] args) {
-		
-		Connection conn = ConnectionManager.getConnection();
+	public static void closeConnection(Connection conn) {
 		
 		try {
 			conn.close();

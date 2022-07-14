@@ -6,9 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.cognixia.jump.ConnectionManager;
+import com.cognixia.jump.connection.ConnectionManager;
 import com.cognixia.jump.exceptions.UserAlreadyExistsException;
-import com.cognixia.jump.menu.Menu;
+import com.cognixia.jump.Menu;
 
 public class User implements Serializable{
 	Connection conn = ConnectionManager.getConnection();
