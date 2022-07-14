@@ -1,4 +1,3 @@
-
 package com.cognixia.jump.dao;
 
 import java.sql.Connection;
@@ -8,13 +7,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.cognixia.jump.ConnectionManager;
-import com.cognixia.jump.model.User;
+import com.cognixia.jump.jdbc.connection.ConnectionManagerWithProps;
 
-public class UserDAO implements UDAO<User> {
+public class UserDAO {
 	private Connection conn = ConnectionManager.getConnection();
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	String query = "";
+
 
 	@Override
 	public User findbyId(int id) {
@@ -54,5 +54,5 @@ public class UserDAO implements UDAO<User> {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+  
 }
