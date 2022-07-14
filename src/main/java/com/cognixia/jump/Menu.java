@@ -92,7 +92,7 @@ public class Menu {
 						int id = rs.getInt("user_id");
 						
 						//Send to Admin options
-						if(id == 5)
+						if(id == 1)
 							AdminSignedInlistOptions();
 						
 						System.out.println(id);

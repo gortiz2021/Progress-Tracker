@@ -98,7 +98,6 @@ insert into user_tv_show values (1, 9, 2);
 insert into user_tv_show values (1, 10, 2);
 insert into user_tv_show values (1, 11, 2);
 
--- Regular users by default have completed NO tv shows
 insert into user_tv_show values (2, 1, 0);
 insert into user_tv_show values (2, 2, 0);
 insert into user_tv_show values (2, 3, 0);
@@ -111,7 +110,6 @@ insert into user_tv_show values (2, 9, 0);
 insert into user_tv_show values (2, 10, 0);
 insert into user_tv_show values (2, 11, 0);
 
--- Regular users by default have completed NO tv shows
 insert into user_tv_show values (3, 1, 0);
 insert into user_tv_show values (3, 2, 0);
 insert into user_tv_show values (3, 3, 0);
@@ -124,7 +122,6 @@ insert into user_tv_show values (3, 9, 0);
 insert into user_tv_show values (3, 10, 0);
 insert into user_tv_show values (3, 11, 0);
 
--- Regular users by default have completed NO tv shows
 insert into user_tv_show values (4, 1, 0);
 insert into user_tv_show values (4, 2, 0);
 insert into user_tv_show values (4, 3, 0);
@@ -137,7 +134,6 @@ insert into user_tv_show values (4, 9, 0);
 insert into user_tv_show values (4, 10, 0);
 insert into user_tv_show values (4, 11, 0);
 
--- Regular users by default have completed NO tv shows
 insert into user_tv_show values (5, 1, 0);
 insert into user_tv_show values (5, 2, 0);
 insert into user_tv_show values (5, 3, 0);
