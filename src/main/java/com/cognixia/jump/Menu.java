@@ -13,13 +13,12 @@ import com.cognixia.jump.connection.ConnectionManager;
 import com.cognixia.jump.dao.TvShowDAO;
 import com.cognixia.jump.dao.UDAO;
 import com.cognixia.jump.dao.UserDAO;
-
 import com.cognixia.jump.exceptions.InputOver255CharactersException;
 
 public class Menu {
 	public final static Scanner scan = new Scanner(System.in);
 
-	private static Integer id = 0;
+	public static Integer id = 0;
 	static UserDAO userDAO = new UserDAO();
 	static TvShowDAO tvshowDAO = new TvShowDAO();
 	static UDAO uDAO = new UDAO();
