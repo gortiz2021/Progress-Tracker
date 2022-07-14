@@ -1,1 +1,0 @@
-insert into user values (5, "administrator", "000");
