@@ -198,7 +198,8 @@ public class Menu {
 					if(resultInt == 2) {
 						resultIntString = "Completed";
 					}
-					System.out.println(resultShow +"               "+ resultIntString);
+// 					System.out.println(resultShow +"               "+ resultIntString);
+					System.out.printf("%-30.30s  %-30.30s\n", resultShow, resultIntString);
 					}
 					SignedInlistOptions();
 					break;
