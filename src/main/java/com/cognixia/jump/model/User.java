@@ -62,7 +62,7 @@ public class User implements Serializable{
 	}
 	public void addUser() {
 		String query = "insert into user (username, password) values (?, ?)";
-		String check = "select * from user where username = ? and password = ?";
+		String check = "select * from user where username = ?";
 		System.out.println("CREATE A USER:");
 		System.out.println("please enter your username");
 		username = Menu.scan.nextLine();
@@ -74,7 +74,7 @@ public class User implements Serializable{
 			pstmt.setString(2, password);
 			PreparedStatement pstmt2 = conn.prepareStatement(check);
 			pstmt2.setString(1, username);
-			pstmt2.setString(2, password);
+//			pstmt2.setString(2, password);
 //			int i = pstmt2.executeUpdate();
 			ResultSet rs = pstmt2.executeQuery();
 			
