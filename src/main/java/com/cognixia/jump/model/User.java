@@ -1,8 +1,17 @@
 package com.cognixia.jump.model;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.cognixia.jump.ConnectionManager;
+import com.cognixia.jump.exceptions.UserAlreadyExistsException;
+import com.cognixia.jump.menu.Menu;
 
 public class User implements Serializable{
+	Connection conn = ConnectionManager.getConnection();
 	private static final int serialVersion = 1;
 	
 	private int user_id;
@@ -51,7 +60,39 @@ public class User implements Serializable{
 	public String toString() {
 		return "User [user_id=" + user_id + ", username=" + username + ", password=" + password + "]";
 	}
-	
+	public void addUser() {
+		String query = "insert into user (username, password) values (?, ?)";
+		String check = "select * from user where username = ? and password = ?";
+		System.out.println("CREATE A USER:");
+		System.out.println("please enter your username");
+		username = Menu.scan.nextLine();
+		System.out.println("Please enter your password");
+		password = Menu.scan.nextLine();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			PreparedStatement pstmt2 = conn.prepareStatement(check);
+			pstmt2.setString(1, username);
+			pstmt2.setString(2, password);
+//			int i = pstmt2.executeUpdate();
+			ResultSet rs = pstmt2.executeQuery();
+			
+//			System.out.println(rs);
+			if (rs.next() == false) {
+				int i = pstmt.executeUpdate();
+				System.out.println("user created with username: " + username);				
+			}
+			else {
+				throw new UserAlreadyExistsException("user already exists!");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (UserAlreadyExistsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
 
