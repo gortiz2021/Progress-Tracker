@@ -10,6 +10,7 @@ public class ConnectionManager {
 	private static final String URL = "jdbc:mysql://localhost:3306/progress_tracker";
 	
 	//ENTER YOUR OWN USERNAME AND PASSWORD TO YOUR MYSQL SERVER!!!!!!
+
 	private static final String USERNAME = "";
 	private static final String PASSWORD = "";
 

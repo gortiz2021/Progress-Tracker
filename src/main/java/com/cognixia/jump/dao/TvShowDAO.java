@@ -22,11 +22,9 @@ public class TvShowDAO {
 	String query = "";
 	
 	public TvShow getTvShow (int id){
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String query = "";
-		TvShow show = null;
 		
+		TvShow show = null;
+	
 		try {
 			query = "select * from tv_show where tv_show_id = ?;";
 			
