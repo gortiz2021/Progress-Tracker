@@ -11,7 +11,9 @@ import java.util.Scanner;
 
 import com.cognixia.jump.connection.ConnectionManager;
 import com.cognixia.jump.dao.TvShowDAO;
+import com.cognixia.jump.dao.UDAO;
 import com.cognixia.jump.dao.UserDAO;
+
 import com.cognixia.jump.exceptions.InputOver255CharactersException;
 
 public class Menu {
@@ -20,7 +22,7 @@ public class Menu {
 	private static Integer id = 0;
 	static UserDAO userDAO = new UserDAO();
 	static TvShowDAO tvshowDAO = new TvShowDAO();
-
+	static UDAO uDAO = new UDAO();
 	private static final int signed_in_options = 4;
 	private static final int log_in_options = 3;
 	private boolean exit;
@@ -56,7 +58,7 @@ public class Menu {
 //					scan.nextLine();
 					String getUsername = "";
 					String getPassword = "";
-					Integer user_id = 0;
+					//Integer user_id = 0;
 					try {
 
 						System.out.println("Enter username: ");
@@ -91,13 +93,13 @@ public class Menu {
 					} else {
 						System.out.println("Login Successful!");
 
-						int id = rs.getInt("user_id");
-						
-						//Send to Admin options
-						if(id == 1)
+						 id = rs.getInt("user_id");
+
+						// Send to Admin options
+						if (id == 1)
 							AdminSignedInlistOptions();
 						else
-						//System.out.println(id);
+							// System.out.println(id);
 							SignedInlistOptions();
 
 					}
@@ -176,57 +178,78 @@ public class Menu {
 				Scanner scan = new Scanner(System.in);
 				int response = getResponse(signed_in_options, scan);
 				switch (response) {
-				//all shows and make changes to tracker
-				
-				
+				// all shows and make changes to tracker
+
 				case 1:
-					
-					System.out.println("These are the shows that you have in progress.");					
-					
-					PreparedStatement pstmt = conn.prepareStatement("select tv_show_name as 'Show Name', progress from tv_show "
-							+ "join user_tv_show on tv_show.tv_show_id = user_tv_show.show_id " 
-							+ "join user on user.user_id = user_tv_show.user_id "
-							+ "where user.user_id = ?");
-					//System.out.println(id);
+
+					System.out.println("These are the shows in your list.");
+
+					PreparedStatement pstmt = conn
+							.prepareStatement("select tv_show_name as 'Show Name', progress from tv_show "
+									+ "join user_tv_show on tv_show.tv_show_id = user_tv_show.show_id "
+									+ "join user on user.user_id = user_tv_show.user_id " + "where user.user_id = ?");
+					// System.out.println(id);
 					pstmt.setInt(1, id);
 					ResultSet rs = pstmt.executeQuery();
-					while(rs.next()) {
-					String resultShow = rs.getString("Show Name");
-					Integer resultInt = rs.getInt("progress");
-					String resultIntString = "";
-					if(resultInt == 0) {
-						resultIntString = "Not Started";
-					}
-					if(resultInt == 1) {
-						resultIntString = "In Progress";
-					}
-					if(resultInt == 2) {
-						resultIntString = "Completed";
-					}
+					while (rs.next()) {
+						String resultShow = rs.getString("Show Name");
+						Integer resultInt = rs.getInt("progress");
+						String resultIntString = "";
+						if (resultInt == 0) {
+							resultIntString = "Not Started";
+						}
+						if (resultInt == 1) {
+							resultIntString = "In Progress";
+						}
+						if (resultInt == 2) {
+							resultIntString = "Completed";
+						}
 // 					System.out.println(resultShow +"               "+ resultIntString);
-					System.out.printf("%-30.30s  %-30.30s\n", resultShow, resultIntString);
+						System.out.printf("%-30.30s  %-30.30s\n", resultShow, resultIntString);
 					}
 					SignedInlistOptions();
 					break;
 				case 2:
+					System.out.println(id);
+					Integer progressShowID = 0;
 					System.out.println("This will allow you to update progress");
+					String progessToUpdate = "";
+					System.out.println("Enter the name of the show you wish to update.");
+					progessToUpdate = scan.nextLine();
+					pstmt = conn.prepareStatement("select tv_show_id from tv_show where " + "tv_show_name = ?");
+
+					pstmt.setString(1, progessToUpdate);
 					
+					rs = pstmt.executeQuery();
+					while (rs.next()) {
+						progressShowID = rs.getInt("tv_show_id");
+					}
+					;
+					System.out.println(progressShowID);
+					System.out.println("Enter value you would like to update show with: \n" + "1: Not Started \n"
+							+ "2: In Progress \n" 
+							+ "3: Completed \n");
+					Integer getNewProgress = scan.nextInt();
+					
+					uDAO.updateProgressOfTvShow(getNewProgress, id, progressShowID);
 					break;
 				case 3:
 					System.out.println("Completed shows");
-					
-					PreparedStatement pstmt1 = conn.prepareStatement("select tv_show_name as 'Show Name', progress from tv_show "
-							+ "join user_tv_show on tv_show.tv_show_id = user_tv_show.show_id " 
-							+ "join user on user.user_id = user_tv_show.user_id "
-							+ "where user.user_id = ? and progress = ?");
-					//System.out.println(id);
+
+					PreparedStatement pstmt1 = conn
+							.prepareStatement("select tv_show_name as 'Show Name', progress from tv_show "
+									+ "join user_tv_show on tv_show.tv_show_id = user_tv_show.show_id "
+									+ "join user on user.user_id = user_tv_show.user_id "
+									+ "where user.user_id = ? and progress = ?");
+					// System.out.println(id);
 					pstmt1.setInt(1, id);
 					pstmt1.setInt(2, 2);
 					ResultSet rs1 = pstmt1.executeQuery();
-					while(rs1.next()) {
+					while (rs1.next()) {
 						String resultShow = rs1.getString("Show Name");
 						Integer resultInt = rs1.getInt("progress");
-						System.out.println(resultShow);}
+						System.out.println(resultShow);
+					}
 					break;
 				case 4:
 					ptcond = false;
@@ -240,9 +263,10 @@ public class Menu {
 		}
 
 	}
+
 	private static void AdminSignedInlistOptions() {
 		boolean ptcond = true;
-		
+
 		System.out.println("=================ADMINISTRATOR SIGNED IN===================");
 		System.out.println("===========================================================");
 		System.out.println("Please select an option:");
@@ -253,90 +277,89 @@ public class Menu {
 		System.out.println("===========================================================");
 		System.out.println("===========================================================");
 		System.out.println();
-		
+
 		try {
-			
-			while(ptcond) {
-				
+
+			while (ptcond) {
+
 				Scanner scan = new Scanner(System.in);
 				int response = getResponse(signed_in_options, scan);
-				
-				switch(response) {
-				
-					case 1:
-						String query = "insert into tv_show values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-						String getLastID = "select MAX(tv_show_id) from tv_show";
-								
-						PreparedStatement pstmt = conn.prepareStatement(getLastID);
-						ResultSet rs = pstmt.executeQuery();
-						int lastID = -1;
-						
-						if(rs.next()) {
-							
-							lastID = rs.getInt(1);
-						
-							PreparedStatement pstmt2 = conn.prepareStatement(query);
-							String name = "", actor = "", director = "", genre = "", rating = "", firstEpisode = "", status = "";
-							int numOfSeasons = 0, numOfEpisodes = 0, audienceScore = 0;
-							
-							System.out.println("Please enter the show's name:");
-							name = Menu.scan.nextLine();
-							System.out.println("Please enter the show's leading actor:");
-							actor = Menu.scan.nextLine();
-							System.out.println("Please enter the show's director:");
-							director = Menu.scan.nextLine();
-							System.out.println("Please enter the show's number of seasons:");
-							numOfSeasons = Menu.scan.nextInt();
-							System.out.println("Please enter the show's number of episodes:");
-							numOfEpisodes = Menu.scan.nextInt();
-							System.out.println("Please enter the show's genre:");
-							Menu.scan.nextLine();
-							genre = Menu.scan.nextLine();
-							System.out.println("Please enter the show's audience score:");
-							audienceScore = Menu.scan.nextInt();
-							System.out.println("Please enter the show's rating:");
-							Menu.scan.nextLine();
-							rating = Menu.scan.nextLine();
-							System.out.println("Please enter the show's first episode's name:");
-							firstEpisode = Menu.scan.nextLine();
-							System.out.println("Please enter the show's status:");
-							status = Menu.scan.nextLine();
-							
-							pstmt2.setInt(1, lastID + 1);
-							pstmt2.setString(2, name);
-							pstmt2.setString(3, actor);
-							pstmt2.setString(4, director);
-							pstmt2.setInt(5, numOfSeasons);
-							pstmt2.setInt(6, numOfEpisodes);
-							pstmt2.setString(7, genre);
-							pstmt2.setInt(8, audienceScore);
-							pstmt2.setString(9, rating);
-							pstmt2.setString(10, firstEpisode);
-							pstmt2.setString(11, status);
-							
-							pstmt2.executeUpdate();
-							System.out.println("Added topic.");
-								
-						}		
-						break;
-					case 2:
-						System.out.println();
-					case 3:
-						System.out.println();
-					case 4:
-					default:
-						exit(0);
-							
-						
+
+				switch (response) {
+
+				case 1:
+					String query = "insert into tv_show values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					String getLastID = "select MAX(tv_show_id) from tv_show";
+
+					PreparedStatement pstmt = conn.prepareStatement(getLastID);
+					ResultSet rs = pstmt.executeQuery();
+					int lastID = -1;
+
+					if (rs.next()) {
+
+						lastID = rs.getInt(1);
+
+						PreparedStatement pstmt2 = conn.prepareStatement(query);
+						String name = "", actor = "", director = "", genre = "", rating = "", firstEpisode = "",
+								status = "";
+						int numOfSeasons = 0, numOfEpisodes = 0, audienceScore = 0;
+
+						System.out.println("Please enter the show's name:");
+						name = Menu.scan.nextLine();
+						System.out.println("Please enter the show's leading actor:");
+						actor = Menu.scan.nextLine();
+						System.out.println("Please enter the show's director:");
+						director = Menu.scan.nextLine();
+						System.out.println("Please enter the show's number of seasons:");
+						numOfSeasons = Menu.scan.nextInt();
+						System.out.println("Please enter the show's number of episodes:");
+						numOfEpisodes = Menu.scan.nextInt();
+						System.out.println("Please enter the show's genre:");
+						Menu.scan.nextLine();
+						genre = Menu.scan.nextLine();
+						System.out.println("Please enter the show's audience score:");
+						audienceScore = Menu.scan.nextInt();
+						System.out.println("Please enter the show's rating:");
+						Menu.scan.nextLine();
+						rating = Menu.scan.nextLine();
+						System.out.println("Please enter the show's first episode's name:");
+						firstEpisode = Menu.scan.nextLine();
+						System.out.println("Please enter the show's status:");
+						status = Menu.scan.nextLine();
+
+						pstmt2.setInt(1, lastID + 1);
+						pstmt2.setString(2, name);
+						pstmt2.setString(3, actor);
+						pstmt2.setString(4, director);
+						pstmt2.setInt(5, numOfSeasons);
+						pstmt2.setInt(6, numOfEpisodes);
+						pstmt2.setString(7, genre);
+						pstmt2.setInt(8, audienceScore);
+						pstmt2.setString(9, rating);
+						pstmt2.setString(10, firstEpisode);
+						pstmt2.setString(11, status);
+
+						pstmt2.executeUpdate();
+						System.out.println("Added topic.");
+
 					}
-				
+					break;
+				case 2:
+					System.out.println();
+				case 3:
+					System.out.println();
+				case 4:
+				default:
+					exit(0);
+
 				}
-			
-			
-		}catch (Exception e) {
-			
+
+			}
+
+		} catch (Exception e) {
+
 			e.printStackTrace();
-			
+
 		}
 	}
 
