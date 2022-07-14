@@ -12,7 +12,6 @@ import java.util.Scanner;
 import com.cognixia.jump.connection.ConnectionManager;
 import com.cognixia.jump.dao.UserDAO;
 import com.cognixia.jump.exceptions.InputOver255CharactersException;
-import com.cognixia.jump.model.User;
 
 public class Menu {
 	public final static Scanner scan = new Scanner(System.in);
@@ -31,7 +30,7 @@ public class Menu {
 		ResultSet rs = null;
 		String query = "";
 //		Scanner scan = new Scanner(System.in);
-		User user = new User();
+		UserDAO userDAO = new UserDAO();
 
 		boolean loginCond = true;
 		System.out.println();
@@ -105,7 +104,7 @@ public class Menu {
 					exit(0);
 					break;
 				case 3:
-					user.addUser();
+					userDAO.addUser();
 					break;	
 				
 				}
