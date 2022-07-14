@@ -260,11 +260,14 @@ public class Menu {
 				
 				Scanner scan = new Scanner(System.in);
 				int response = getResponse(signed_in_options, scan);
+				String query = "";
+				
 				
 				switch(response) {
 				
 					case 1:
-						String query = "insert into tv_show values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+						
+						query = "insert into tv_show values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 						String getLastID = "select MAX(tv_show_id) from tv_show";
 								
 						PreparedStatement pstmt = conn.prepareStatement(getLastID);
@@ -320,7 +323,25 @@ public class Menu {
 						}		
 						break;
 					case 2:
-						System.out.println();
+						
+						//currently bugged:  Cannot delete or update a parent row: a foreign key constraint fails 
+						
+						//TODO: need to find a way to delete rows from the junction table at the same time as deleting
+						//a record from the table
+						System.out.println("Enter the ID of the topic you would like to delete:");
+						int idChoice = scan.nextInt();
+						query = "delete from tv_show where tv_show_id = ?";
+						PreparedStatement pstmt3 = conn.prepareStatement(query);
+						pstmt3.setInt(1, idChoice);
+						int numUpdates = pstmt3.executeUpdate();
+						if(numUpdates > 0)
+							System.out.println("Operation successful");
+						else
+							System.out.println("Opperation unsuccessful");
+						break;
+						
+						
+						
 					case 3:
 						System.out.println();
 					case 4:
