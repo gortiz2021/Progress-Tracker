@@ -284,6 +284,97 @@ public class Menu {
 
 				Scanner scan = new Scanner(System.in);
 				int response = getResponse(signed_in_options, scan);
+<<<<<<< HEAD
+				String query = "";
+				
+				
+				switch(response) {
+				
+					case 1:
+						
+						query = "insert into tv_show values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+						String getLastID = "select MAX(tv_show_id) from tv_show";
+								
+						PreparedStatement pstmt = conn.prepareStatement(getLastID);
+						ResultSet rs = pstmt.executeQuery();
+						int lastID = -1;
+						
+						if(rs.next()) {
+							
+							lastID = rs.getInt(1);
+						
+							PreparedStatement pstmt2 = conn.prepareStatement(query);
+							String name = "", actor = "", director = "", genre = "", rating = "", firstEpisode = "", status = "";
+							int numOfSeasons = 0, numOfEpisodes = 0, audienceScore = 0;
+							
+							System.out.println("Please enter the show's name:");
+							name = Menu.scan.nextLine();
+							System.out.println("Please enter the show's leading actor:");
+							actor = Menu.scan.nextLine();
+							System.out.println("Please enter the show's director:");
+							director = Menu.scan.nextLine();
+							System.out.println("Please enter the show's number of seasons:");
+							numOfSeasons = Menu.scan.nextInt();
+							System.out.println("Please enter the show's number of episodes:");
+							numOfEpisodes = Menu.scan.nextInt();
+							System.out.println("Please enter the show's genre:");
+							Menu.scan.nextLine();
+							genre = Menu.scan.nextLine();
+							System.out.println("Please enter the show's audience score:");
+							audienceScore = Menu.scan.nextInt();
+							System.out.println("Please enter the show's rating:");
+							Menu.scan.nextLine();
+							rating = Menu.scan.nextLine();
+							System.out.println("Please enter the show's first episode's name:");
+							firstEpisode = Menu.scan.nextLine();
+							System.out.println("Please enter the show's status:");
+							status = Menu.scan.nextLine();
+							
+							pstmt2.setInt(1, lastID + 1);
+							pstmt2.setString(2, name);
+							pstmt2.setString(3, actor);
+							pstmt2.setString(4, director);
+							pstmt2.setInt(5, numOfSeasons);
+							pstmt2.setInt(6, numOfEpisodes);
+							pstmt2.setString(7, genre);
+							pstmt2.setInt(8, audienceScore);
+							pstmt2.setString(9, rating);
+							pstmt2.setString(10, firstEpisode);
+							pstmt2.setString(11, status);
+							
+							pstmt2.executeUpdate();
+							System.out.println("Added topic.");
+								
+						}		
+						break;
+					case 2:
+						
+						//currently bugged:  Cannot delete or update a parent row: a foreign key constraint fails 
+						
+						//TODO: need to find a way to delete rows from the junction table at the same time as deleting
+						//a record from the table
+						System.out.println("Enter the ID of the topic you would like to delete:");
+						int idChoice = scan.nextInt();
+						query = "delete from tv_show where tv_show_id = ?";
+						PreparedStatement pstmt3 = conn.prepareStatement(query);
+						pstmt3.setInt(1, idChoice);
+						int numUpdates = pstmt3.executeUpdate();
+						if(numUpdates > 0)
+							System.out.println("Operation successful");
+						else
+							System.out.println("Opperation unsuccessful");
+						break;
+						
+						
+						
+					case 3:
+						System.out.println();
+					case 4:
+					default:
+						exit(0);
+							
+						
+=======
 
 				switch (response) {
 
@@ -342,6 +433,7 @@ public class Menu {
 						pstmt2.executeUpdate();
 						System.out.println("Added topic.");
 
+>>>>>>> 3562e5730b1e89aae4b3b454b4f295ecc42dea55
 					}
 					break;
 				case 2:
