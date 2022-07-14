@@ -6,8 +6,7 @@ import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.cognixia.jump.ConnectionManager;
-import com.cognixia.jump.jdbc.connection.ConnectionManagerWithProps;
+import com.cognixia.jump.connection.ConnectionManager;
 
 public class UserDAO {
 	private Connection conn = ConnectionManager.getConnection();
