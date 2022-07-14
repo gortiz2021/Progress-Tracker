@@ -11,7 +11,7 @@ import com.cognixia.jump.connection.ConnectionManager;
 import com.cognixia.jump.exceptions.UserAlreadyExistsException;
 import com.cognixia.jump.model.User;
 
-public class UserDAO implements UDAO<User> {
+public class UserDAO {
 	private Connection conn = ConnectionManager.getConnection();
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -19,7 +19,6 @@ public class UserDAO implements UDAO<User> {
 	private String username;
 	private String password;
 
-	@Override
 	public User findbyId(int id) {
 		try {
 			query = "select * from user where user_id = ?";
@@ -34,32 +33,31 @@ public class UserDAO implements UDAO<User> {
 	}
 
 	
-	@Override
-	public List<User> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<User> findAll() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public boolean create(User entity) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean update(User entity) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean deleteById(int id) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 
-	@Override
-	public boolean create(User entity) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public boolean update(User entity) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean deleteById(int id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
 	public void addUser() {
 		String query = "insert into user (username, password) values (?, ?)";
 		String check = "select * from user where username = ?";
