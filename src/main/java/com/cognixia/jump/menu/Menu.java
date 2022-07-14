@@ -141,7 +141,7 @@ public class Menu {
 		System.out.println("Please select an option: ");
 		System.out.println("#1: Log In");
 		System.out.println("#2: Exit System");
-		System.out.prinltn("#3: Add a User");
+		System.out.println("#3: Add a User");
 	}
 
 //console menu	
