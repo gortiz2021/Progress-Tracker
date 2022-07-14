@@ -221,17 +221,26 @@ public class Menu {
 					pstmt.setString(1, progessToUpdate);
 					
 					rs = pstmt.executeQuery();
-					while (rs.next()) {
-						progressShowID = rs.getInt("tv_show_id");
-					}
-					;
+					rs.next();
+					progressShowID = rs.getInt("tv_show_id");
+					
 					System.out.println(progressShowID);
-					System.out.println("Enter value you would like to update show with: \n" + "1: Not Started \n"
-							+ "2: In Progress \n" 
-							+ "3: Completed \n");
+					System.out.println("Enter value you would like to update show with: \n" + "0: Not Started \n"
+							+ "1: In Progress \n" 
+							+ "2: Completed \n");
 					Integer getNewProgress = scan.nextInt();
 					
-					uDAO.updateProgressOfTvShow(getNewProgress, id, progressShowID);
+					pstmt = conn.prepareStatement("update user_tv_show "
+							+ "set progress = ? "
+							+ "where user_id = ? and show_id = ?");
+					
+						pstmt.setInt(1, getNewProgress);
+						pstmt.setInt(2, id);
+						pstmt.setInt(3, progressShowID);
+						
+						pstmt.executeUpdate();
+					
+					//uDAO.updateProgressOfTvShow(getNewProgress, id, progressShowID);
 					break;
 				case 3:
 					System.out.println("Completed shows");
