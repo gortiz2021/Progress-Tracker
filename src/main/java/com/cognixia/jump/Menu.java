@@ -89,9 +89,14 @@ public class Menu {
 					else {
 						System.out.println("Login Successful!");
 					
-					int id = rs.getInt("user_id");
-					System.out.println(id);
-					SignedInlistOptions();
+						int id = rs.getInt("user_id");
+						
+						//Send to Admin options
+						if(id == 1)
+							AdminSignedInlistOptions();
+						
+						System.out.println(id);
+						SignedInlistOptions();
 					
 					}
 					rs.close();
@@ -198,12 +203,20 @@ public class Menu {
 		}
 		
 		
-		
-		
-		
-		
-		
 	}
+	
+	private static void AdminSignedInlistOptions() {
+		System.out.println("=================ADMINISTRATOR SIGNED IN===================");
+		System.out.println("===========================================================");
+		System.out.println("Please select an option:");
+		System.out.println("#1: Add a new topic");
+		System.out.println("#2: Remove a topic");
+		System.out.println("#3: Edit topic info");
+		System.out.println("===========================================================");
+		System.out.println("===========================================================");
+		System.out.println();
+	}
+	
 
 	// gets menu response
 	private static int getResponse(int range, Scanner scan) {
