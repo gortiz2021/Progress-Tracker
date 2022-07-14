@@ -1,26 +1,26 @@
 package com.cognixia.jump.menu;
 
+import static java.lang.System.exit;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 import com.cognixia.jump.ConnectionManager;
-import com.cognixia.jump.exceptions.InputOver255CharactersException;
 import com.cognixia.jump.dao.UserDAO;
-import com.cognixia.jump.model.*;
-import static java.lang.System.exit;
+import com.cognixia.jump.exceptions.InputOver255CharactersException;
+import com.cognixia.jump.model.User;
 
 public class Menu {
+	public final static Scanner scan = new Scanner(System.in);
 
 	static UserDAO userDAO = new UserDAO();
 
 	private static final int signed_in_options = 4;
-	private static final int log_in_options = 2;
+	private static final int log_in_options = 3;
 	private boolean exit;
 
 	private static Connection conn = ConnectionManager.getConnection();
@@ -30,7 +30,8 @@ public class Menu {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = "";
-		Scanner scan = new Scanner(System.in);
+//		Scanner scan = new Scanner(System.in);
+		User user = new User();
 
 		boolean loginCond = true;
 		System.out.println();
@@ -50,7 +51,7 @@ public class Menu {
 
 				case 1:
 
-					scan.nextLine();
+//					scan.nextLine();
 					String getUsername = "";
 					String getPassword = "";
 					Integer user_id = 0;
@@ -102,6 +103,10 @@ public class Menu {
 
 				case 2:
 					exit(0);
+					break;
+				case 3:
+					user.addUser();
+					break;	
 				
 				}
 
@@ -213,6 +218,7 @@ public class Menu {
 			try {
 
 				optHolder = scan.nextInt();
+				scan.nextLine();
 				if (optHolder < 1 || optHolder > range)
 					System.out.println("You must select a number between 1 and " + range + "!");
 				else
