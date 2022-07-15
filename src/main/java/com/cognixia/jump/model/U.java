@@ -3,9 +3,20 @@ package com.cognixia.jump.model;
 // U model to be used later in UDAO class
 // This model is based on the "user_tv_show" table from the 
 // "progess_checker" database
+<<<<<<< HEAD
+=======
+//class for junction table user_tv_show
+
+// U model to be used later in UDAO class
+// This model is based on the "user_tv_show" table from the 
+// "progess_checker" database
+
+//class for junction table user_tv_show
+
+>>>>>>> d1bf63cfeac2abe1e503c967a0dc52a1bfe73bc7
 public class U {
 
-	// Vairables are all based on the colums from the "user_tv_show" table
+	// Variables are all based on the columns from the "user_tv_show" table
 	private int userId;
 	private int tvShowId;
 	private int progress;
@@ -47,7 +58,7 @@ public class U {
 		this.progress = progress;
 	}
 
-	// Overriden toString() method to display any object of this class
+	// Overridden toString() method to display any object of this class
 	@Override
 	public String toString() {
 		return "U [userId=" + userId + ", tvShowId=" + tvShowId + ", progress=" + progress + "]";
