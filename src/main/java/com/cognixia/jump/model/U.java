@@ -1,5 +1,9 @@
 package com.cognixia.jump.model;
 
+// U model to be used later in UDAO class
+// This model is based on the "user_tv_show" table from the 
+// "progess_checker" database
+//class for junction table user_tv_show
 
 // U model to be used later in UDAO class
 // This model is based on the "user_tv_show" table from the 
