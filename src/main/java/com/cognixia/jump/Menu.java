@@ -1,3 +1,7 @@
+/**
+ * @authors Jacob Laws, Michelle Lovse, Gabriel Ortiz, Toju Mikie
+ */
+
 package com.cognixia.jump;
 
 import static java.lang.System.exit;
