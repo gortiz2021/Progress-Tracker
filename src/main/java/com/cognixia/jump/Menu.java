@@ -22,6 +22,7 @@ import com.cognixia.jump.dao.UserDAO;
 import com.cognixia.jump.exceptions.InputOver255CharactersException;
 
 public class Menu {
+	
 	//declaring variables that will be accessible for methods
 	public final static Scanner scan = new Scanner(System.in);
 	//declaring id variable so that the variable can be stored after user is logged in for later use
@@ -87,10 +88,12 @@ public class Menu {
 							throw new InputOver255CharactersException(getPassword.length());
 
 					} catch (InputOver255CharactersException e) {
+						
 						//error message displayed when user inputs more than acceptable length of characters
 						System.out.println("Input over max length (255 characters)");
 
 					}
+					
 					//prepared statement to check for inputted username and password in db
 					pstmt = conn.prepareStatement("select * from user where username = ? and password = ?");
 
@@ -98,12 +101,16 @@ public class Menu {
 					pstmt.setString(2, getPassword);
 
 					rs = pstmt.executeQuery();
+					
 					//if a result set is not found, then user is prompted to reenter username/password
 					if (!rs.next()) {
+						
 						System.out.println("Incorrect username or password -- Please try again!\n");
 						getUsername = "";
 						continue;
+						
 					} else {
+						
 						System.out.println("Login Successful!");
 						//id being saved for later use
 						 id = rs.getInt("user_id");
@@ -116,6 +123,9 @@ public class Menu {
 							SignedInlistOptions();
 
 					}
+					
+					//closes result set, prepared statement, connection IN THAT ORDER
+					//TODO: ensure all result sets, prepared statements and connection instances are closed before the program terminates
 					rs.close();
 					pstmt.close();
 					loginCond = false;
@@ -140,6 +150,8 @@ public class Menu {
 
 			try {
 
+				//closes result set, prepared statement, connection IN THAT ORDER
+				//TODO: ensure all result sets, prepared statements and connection instances are closed before the program terminates
 				rs.close();
 				pstmt.close();
 				conn.close();
@@ -282,6 +294,7 @@ public class Menu {
 					}
 					break;
 				case 4:
+					System.out.println("Thank you for using the system!");
 					ptcond = false;
 					exit(0);
 				}
@@ -418,21 +431,27 @@ public class Menu {
 						case 3:
 							
 							//TODO: implement a feature to edit a topic's information
-							System.out.println();
+							System.out.println("Feature not yet implemented: coming soon!");
 							break;
 							
 						case 4:
 						default:
+							System.out.println("Thank you for using the system!");
 							ptcond = false;
 							exit(0);
 						}
 
 					}
 
+			} catch (InputMismatchException e) {
+
+				System.out.println("Topic creation/manipulation failed. Reason: Entered non-integer when the system expected an integer. Please try again.");
+				AdminSignedInlistOptions();
+
 			} catch (Exception e) {
-
+				
 				e.printStackTrace();
-
+				
 			}
 		}
 
