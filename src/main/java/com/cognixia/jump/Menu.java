@@ -67,6 +67,7 @@ public class Menu {
 				case 1:
 
 //					//variables to get the user's username and password
+					//TODO: create a more secure login method
 					String getUsername = "";
 					String getPassword = "";
 
