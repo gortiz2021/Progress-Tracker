@@ -13,12 +13,14 @@ import com.cognixia.jump.connection.ConnectionManager;
 import com.cognixia.jump.dao.TvShowDAO;
 import com.cognixia.jump.dao.UDAO;
 import com.cognixia.jump.dao.UserDAO;
+
 import com.cognixia.jump.exceptions.InputOver255CharactersException;
 
+//TODO: implement Singleton design pattern
 public class Menu {
 	public final static Scanner scan = new Scanner(System.in);
 
-	public static Integer id = 0;
+	private static Integer id = 0;
 	static UserDAO userDAO = new UserDAO();
 	static TvShowDAO tvshowDAO = new TvShowDAO();
 	static UDAO uDAO = new UDAO();
@@ -220,26 +222,17 @@ public class Menu {
 					pstmt.setString(1, progessToUpdate);
 					
 					rs = pstmt.executeQuery();
-					rs.next();
-					progressShowID = rs.getInt("tv_show_id");
-					
+					while (rs.next()) {
+						progressShowID = rs.getInt("tv_show_id");
+					}
+					;
 					System.out.println(progressShowID);
-					System.out.println("Enter value you would like to update show with: \n" + "0: Not Started \n"
-							+ "1: In Progress \n" 
-							+ "2: Completed \n");
+					System.out.println("Enter value you would like to update show with: \n" + "1: Not Started \n"
+							+ "2: In Progress \n" 
+							+ "3: Completed \n");
 					Integer getNewProgress = scan.nextInt();
 					
-					pstmt = conn.prepareStatement("update user_tv_show "
-							+ "set progress = ? "
-							+ "where user_id = ? and show_id = ?");
-					
-						pstmt.setInt(1, getNewProgress);
-						pstmt.setInt(2, id);
-						pstmt.setInt(3, progressShowID);
-						
-						pstmt.executeUpdate();
-					
-					//uDAO.updateProgressOfTvShow(getNewProgress, id, progressShowID);
+					uDAO.updateProgressOfTvShow(getNewProgress, id, progressShowID);
 					break;
 				case 3:
 					System.out.println("Completed shows");
@@ -272,6 +265,8 @@ public class Menu {
 
 	}
 
+	//signed in options for admin user
+	//TODO: fully implement all administrator options
 	private static void AdminSignedInlistOptions() {
 		boolean ptcond = true;
 
@@ -299,21 +294,30 @@ public class Menu {
 				
 					case 1:
 						
+						//insert into the tv show table values = tv show name, leading actor, director,
+						//genre, rating, show's first episode, number of seasons, number of episodes,
+						//audience score, and status.
 						query = "insert into tv_show values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+						
+						//selects the maximum id from the tv show table
+						//TODO: make a more sophisticated id grabber
 						String getLastID = "select MAX(tv_show_id) from tv_show";
 								
 						PreparedStatement pstmt = conn.prepareStatement(getLastID);
 						ResultSet rs = pstmt.executeQuery();
 						int lastID = -1;
 						
+						//rs.next() not only checks if an item exists, but it also iterates through it
 						if(rs.next()) {
 							
 							lastID = rs.getInt(1);
 						
+							//TODO: use only one PreparedStatement object
 							PreparedStatement pstmt2 = conn.prepareStatement(query);
 							String name = "", actor = "", director = "", genre = "", rating = "", firstEpisode = "", status = "";
 							int numOfSeasons = 0, numOfEpisodes = 0, audienceScore = 0;
 							
+							//gather's user input for each of the show's values
 							System.out.println("Please enter the show's name:");
 							name = Menu.scan.nextLine();
 							System.out.println("Please enter the show's leading actor:");
@@ -337,6 +341,12 @@ public class Menu {
 							System.out.println("Please enter the show's status:");
 							status = Menu.scan.nextLine();
 							
+							
+							//sets each value for the tv show for each '?' in query
+							
+							//TODO: update junction table simultaneously to set default values for
+							//new shows. Admins by default have watched all shows and users by default
+							//have watched none (unless they change their status)
 							pstmt2.setInt(1, lastID + 1);
 							pstmt2.setString(2, name);
 							pstmt2.setString(3, actor);
@@ -349,11 +359,13 @@ public class Menu {
 							pstmt2.setString(10, firstEpisode);
 							pstmt2.setString(11, status);
 							
+							//executeUpdate is used for DML like INSERT, UPDATE, DELETE
 							pstmt2.executeUpdate();
 							System.out.println("Added topic.");
 								
 						}		
 						break;
+						
 					case 2:
 						
 						//currently bugged:  Cannot delete or update a parent row: a foreign key constraint fails 
@@ -375,9 +387,14 @@ public class Menu {
 						
 						
 					case 3:
+						
+						//TODO: implement a feature to edit a topic's information
 						System.out.println();
+						break;
+						
 					case 4:
 					default:
+						ptcond = false;
 						exit(0);
 					}
 
