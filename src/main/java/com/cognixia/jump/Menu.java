@@ -16,25 +16,29 @@ import com.cognixia.jump.dao.UserDAO;
 import com.cognixia.jump.exceptions.InputOver255CharactersException;
 
 public class Menu {
+	//declaring variables that will be accessible for methods
 	public final static Scanner scan = new Scanner(System.in);
-
+	//declaring id variable so that the variable can be stored after user is logged in for later use
 	public static Integer id = 0;
+	//Instantiating the DAO's 
 	static UserDAO userDAO = new UserDAO();
 	static TvShowDAO tvshowDAO = new TvShowDAO();
 	static UDAO uDAO = new UDAO();
+	//variables used for the menu switch case setups
 	private static final int signed_in_options = 4;
 	private static final int log_in_options = 3;
+	//allows program to exit...uses the java.lang.System.exit import
 	private boolean exit;
-
+	//Calls connection manager
 	private static Connection conn = ConnectionManager.getConnection();
 
 	public static void main(String[] args) {
-
+		//setting up prepared statements, query, and result set for future use
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = "";
 //		Scanner scan = new Scanner(System.in);
-		UserDAO userDAO = new UserDAO();
+		//1UserDAO userDAO = new UserDAO();
 
 		boolean loginCond = true;
 		System.out.println();
@@ -44,54 +48,56 @@ public class Menu {
 		System.out.println();
 
 		try {
-
+			//checks if login has been successful
 			while (loginCond) {
-
+				//calls function with menu options
 				LoginOptions();
+				//variable gets user response, get Response function checks that the user input
+				//is valid
 				int response = getResponse(log_in_options, scan);
 
 				switch (response) {
 
 				case 1:
 
-//					scan.nextLine();
+//					//variables to get the user's username and password
 					String getUsername = "";
 					String getPassword = "";
-					//Integer user_id = 0;
+
 					try {
 
 						System.out.println("Enter username: ");
 						getUsername = scan.nextLine();
-
+						//checks to ensure username does not exceed the varchar count for field in db
 						if (getUsername.length() > 255)
 							throw new InputOver255CharactersException(getUsername.length());
 
 						System.out.println("Enter password: ");
 						getPassword = scan.nextLine();
-
+						//checks to ensure password does not exceed varchar count of field in db
 						if (getPassword.length() > 255)
 							throw new InputOver255CharactersException(getPassword.length());
 
 					} catch (InputOver255CharactersException e) {
-
+						//error message displayed when user inputs more than acceptable length of characters
 						System.out.println("Input over max length (255 characters)");
 
 					}
-
+					//prepared statement to check for inputted username and password in db
 					pstmt = conn.prepareStatement("select * from user where username = ? and password = ?");
 
 					pstmt.setString(1, getUsername);
 					pstmt.setString(2, getPassword);
 
 					rs = pstmt.executeQuery();
-
+					//if a result set is not found, then user is prompted to reenter username/password
 					if (!rs.next()) {
 						System.out.println("Incorrect username or password -- Please try again!\n");
 						getUsername = "";
 						continue;
 					} else {
 						System.out.println("Login Successful!");
-
+						//id being saved for later use
 						 id = rs.getInt("user_id");
 
 						// Send to Admin options
@@ -139,7 +145,7 @@ public class Menu {
 		}
 
 	}
-
+//function with login menu options
 	private static void LoginOptions() {
 
 		System.out.println("========================OPTIONS===========================");
@@ -150,7 +156,7 @@ public class Menu {
 		System.out.println("#3: Add a User");
 	}
 
-//console menu	
+//console menu displayed after user is logged in
 	private static void SignedInlistOptions() {
 		boolean ptcond = true;
 
@@ -158,13 +164,13 @@ public class Menu {
 		System.out.println("==========================================================");
 		System.out.println("Please select an option: ");
 		// view progess
-		System.out.println("#1: Choose show to check progress");
+		System.out.println("#1: List of your shows and progress");
 
 		// update tracker
-		System.out.println("#2: Update show progress");
+		System.out.println("#2: Update a show's progress");
 
 		// view completed
-		System.out.println("#3: View completed shows");
+		System.out.println("#3: View your completed shows");
 		// exit system
 		System.out.println("#4: Exit the system.");
 		System.out.println("==========================================================");
@@ -178,7 +184,7 @@ public class Menu {
 				int response = getResponse(signed_in_options, scan);
 				switch (response) {
 				// all shows and make changes to tracker
-
+				//case 1: makes call to database to return shows that match the user's id
 				case 1:
 
 					System.out.println("These are the shows in your list.");
@@ -194,6 +200,7 @@ public class Menu {
 						String resultShow = rs.getString("Show Name");
 						Integer resultInt = rs.getInt("progress");
 						String resultIntString = "";
+						//if statements to display string vs an int to users to make it more user friendly
 						if (resultInt == 0) {
 							resultIntString = "Not Started";
 						}
@@ -203,7 +210,7 @@ public class Menu {
 						if (resultInt == 2) {
 							resultIntString = "Completed";
 						}
-// 					System.out.println(resultShow +"               "+ resultIntString);
+						//format to make results look uniform
 						System.out.printf("%-30.30s  %-30.30s\n", resultShow, resultIntString);
 					}
 					SignedInlistOptions();
@@ -211,12 +218,13 @@ public class Menu {
 				case 2:
 					System.out.println(id);
 					Integer progressShowID = 0;
-					System.out.println("This will allow you to update progress");
+					System.out.println("Updating show progress");
 					String progessToUpdate = "";
 					System.out.println("Enter the name of the show you wish to update.");
 					progessToUpdate = scan.nextLine();
+					//gets id of show that user entered based on match to show name
 					pstmt = conn.prepareStatement("select tv_show_id from tv_show where " + "tv_show_name = ?");
-
+					
 					pstmt.setString(1, progessToUpdate);
 					
 					rs = pstmt.executeQuery();
@@ -224,6 +232,7 @@ public class Menu {
 					progressShowID = rs.getInt("tv_show_id");
 					
 					System.out.println(progressShowID);
+					//prompts user to enter numeric entry to update the show's progress
 					System.out.println("Enter value you would like to update show with: \n" + "0: Not Started \n"
 							+ "1: In Progress \n" 
 							+ "2: Completed \n");
@@ -238,12 +247,16 @@ public class Menu {
 						pstmt.setInt(3, progressShowID);
 						
 						pstmt.executeUpdate();
-					
+						//TODO: incorporate function from UDAO to handle updating progress
+
 					//uDAO.updateProgressOfTvShow(getNewProgress, id, progressShowID);
 					break;
 				case 3:
 					System.out.println("Completed shows");
-
+					//TODO: create function in UDAO to handle database call and returning results
+					
+					//prepared statement that joins tv show, user, and user_tv_show tables to return list of shows that 
+					//have a completed status that corresponds to user's id 
 					PreparedStatement pstmt1 = conn
 							.prepareStatement("select tv_show_name as 'Show Name', progress from tv_show "
 									+ "join user_tv_show on tv_show.tv_show_id = user_tv_show.show_id "
@@ -391,6 +404,7 @@ public class Menu {
 	}
 
 	// gets menu response
+	//method checks to ensure that the user's entered response is within range of menu options available
 	private static int getResponse(int range, Scanner scan) {
 
 		boolean cond = true;
@@ -421,6 +435,7 @@ public class Menu {
 	}
 
 	public boolean getExit() {
+		
 		return exit;
 	}
 }
