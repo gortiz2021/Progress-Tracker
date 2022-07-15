@@ -1,7 +1,10 @@
 package com.cognixia.jump.model;
 
+// model to be used in a future DAO class
 public class TvShow {
 	
+	// TvShow model has a variable based on every column in the table
+	// The table is named "tv_show"comes from the "progress_tracker" database
 	private int id;
 	private String name;
 	private String leadingActor;
@@ -14,10 +17,12 @@ public class TvShow {
 	private String firstEpisodeName;
 	private String status;
 	
+	// Two default constructors that are to create new objects of this class
 	public TvShow() {
 		this(-1, "NA", "NA", "NA", 0, 0, "NA", 0, "NA", "NA", "NA");
 	}
 	
+	// This constructor was auto-generated
 	public TvShow(int id, String name, String leadingActor, String director, int numOfSeasons, int numOfEpisodes,
 			String genre, int audienceScore, String rating, String firstEpisodeName, String status) {
 		super();
@@ -34,6 +39,7 @@ public class TvShow {
 		this.status = status;
 	}
 
+	// A list of auto-generated getter and setter functions for every variable 
 	public long getId() {
 		return id;
 	}
@@ -122,6 +128,7 @@ public class TvShow {
 		this.status = status;
 	}
 
+	// Overriden toString() method to display any object of this class
 	@Override
 	public String toString() {
 		return "TvShow [id=" + id + ", name=" + name + ", leadingActor=" + leadingActor + ", director=" + director

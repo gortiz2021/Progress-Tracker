@@ -1,6 +1,5 @@
 package com.cognixia.jump.model;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,10 +9,9 @@ import com.cognixia.jump.connection.ConnectionManager;
 import com.cognixia.jump.exceptions.UserAlreadyExistsException;
 import com.cognixia.jump.Menu;
 
-public class User implements Serializable{
+public class User{
 	Connection conn = ConnectionManager.getConnection();
-	private static final int serialVersion = 1;
-	
+
 	private int user_id;
 	private String username;
 	private String password;
@@ -94,6 +92,4 @@ public class User implements Serializable{
 		}
 	}
 	
-	
-
 }

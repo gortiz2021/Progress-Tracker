@@ -1,15 +1,20 @@
 package com.cognixia.jump.model;
 
+// U model to be used later in UDAO class
+// This model is based on the "user_tv_show" table from the 
+// "progess_checker" database
 public class U {
 
+	// Vairables are all based on the colums from the "user_tv_show" table
 	private int userId;
 	private int tvShowId;
 	private int progress;
 
-//	public U() {
-//		this(-1, -1, "NA");
-//	}
-//	
+	// Two default constructors that are to create new objects of this class
+	public U() {
+		this(-1, -1, -1);
+	}
+	
 	public U(int userId, int tvShowId, int progress) {
 		super();
 		this.userId = userId;
@@ -17,6 +22,7 @@ public class U {
 		this.progress = progress;
 	}
 	
+	// A list of auto-generated getter and setter functions for every variable 
 	public int getUserId() {
 		return userId;
 	}
@@ -41,6 +47,7 @@ public class U {
 		this.progress = progress;
 	}
 
+	// Overriden toString() method to display any object of this class
 	@Override
 	public String toString() {
 		return "U [userId=" + userId + ", tvShowId=" + tvShowId + ", progress=" + progress + "]";
