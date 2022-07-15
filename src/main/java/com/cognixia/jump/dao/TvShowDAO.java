@@ -70,6 +70,8 @@ public class TvShowDAO {
 			//loop until there are no more shows to go through
 			while(rs.next()) {
 				
+				//initialize a new show object
+				//then use setters to construct the object
 				TvShow show = new TvShow();
 				show.setId(rs.getInt(1));
 				show.setName(rs.getString(2));
@@ -82,6 +84,7 @@ public class TvShowDAO {
 				show.setRating(rs.getString(9));
 				show.setFirstEpisodeName(rs.getString(10));
 				show.setStatus(rs.getString(11));
+				//then add it to the list
 				tvShowList.add(show);
 				
 			}

@@ -1,3 +1,4 @@
+-- sql script authors: Jacob Laws, Toju Mikie
 drop database if exists progress_tracker;
 
 -- create progress_tracker database
@@ -9,6 +10,8 @@ use progress_tracker;
 -- select * from user_tv_show;
 -- drop table user_tv_show;
 
+-- create tables for users, tv_shows (topics), and the junction table
+-- for the many to many relationship between users and topics
 create table user(user_id int auto_increment not null primary key, username varchar(255), password varchar(255));
 create table tv_show(
 	tv_show_id int auto_increment not null primary key, 
@@ -98,6 +101,7 @@ insert into user_tv_show values (1, 9, 2);
 insert into user_tv_show values (1, 10, 2);
 insert into user_tv_show values (1, 11, 2);
 
+-- Regular users by default have completed NO tv shows
 insert into user_tv_show values (2, 1, 0);
 insert into user_tv_show values (2, 2, 0);
 insert into user_tv_show values (2, 3, 0);
