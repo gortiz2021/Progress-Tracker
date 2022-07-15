@@ -10,7 +10,11 @@ import com.cognixia.jump.Menu;
 import com.cognixia.jump.connection.ConnectionManager;
 import com.cognixia.jump.exceptions.UserAlreadyExistsException;
 import com.cognixia.jump.model.User;
-
+/**
+ * User Data Access Object Class. The class contains certain methods pertaining to the user.
+ * @authors Jacob Laws, Michelle Lovse, Gabriel Ortiz, Toju Mikie
+ *
+ */
 public class UserDAO {
 	private Connection conn = ConnectionManager.getConnection();
 	PreparedStatement pstmt = null;
@@ -57,7 +61,10 @@ public class UserDAO {
 //		return false;
 //	}
 
-
+	/*
+	 * Method to add a user to the database. The user table will populate with user information, and then the user_tv_show table
+	 * will also populate with id information related to both user and tv shows.
+	 */
 	public void addUser() {
 		String query = "insert into user (username, password) values (?, ?)";
 		String check = "select * from user where username = ?";
