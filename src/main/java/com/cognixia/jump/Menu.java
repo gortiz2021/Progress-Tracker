@@ -33,6 +33,7 @@ public class Menu {
 	private static final int signed_in_options = 4;
 	private static final int log_in_options = 3;
 	//allows program to exit...uses the java.lang.System.exit import
+	//TODO: create method that ensures everything is closed and then exits program
 	private boolean exit;
 	//Calls connection manager
 	private static Connection conn = ConnectionManager.getConnection();
