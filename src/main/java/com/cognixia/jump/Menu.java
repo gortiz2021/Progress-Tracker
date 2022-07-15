@@ -239,6 +239,7 @@ public class Menu {
 					
 					System.out.println(progressShowID);
 					//prompts user to enter numeric entry to update the show's progress
+					//TODO: Set up enums for show progress 
 					System.out.println("Enter value you would like to update show with: \n" + "0: Not Started \n"
 							+ "1: In Progress \n" 
 							+ "2: Completed \n");
