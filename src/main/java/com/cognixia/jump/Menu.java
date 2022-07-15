@@ -244,7 +244,7 @@ public class Menu {
 							+ "1: In Progress \n" 
 							+ "2: Completed \n");
 					Integer getNewProgress = scan.nextInt();
-					
+//					scan.nextLine();
 					pstmt = conn.prepareStatement("update user_tv_show "
 							+ "set progress = ? "
 							+ "where user_id = ? and show_id = ?");
