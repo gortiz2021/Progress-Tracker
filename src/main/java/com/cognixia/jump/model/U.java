@@ -1,5 +1,6 @@
 package com.cognixia.jump.model;
 
+//class for junction table user_tv_show
 public class U {
 
 	private int userId;
