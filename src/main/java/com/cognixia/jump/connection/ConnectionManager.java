@@ -12,7 +12,7 @@ public class ConnectionManager {
 	//ENTER YOUR OWN USERNAME AND PASSWORD TO YOUR MYSQL SERVER!!!!!!
 
 	private static final String USERNAME = "root";
-	private static final String PASSWORD = "";
+	private static final String PASSWORD = "root";
 	
 	public static Connection getConnection() {
 		
