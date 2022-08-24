@@ -251,7 +251,7 @@ public class Menu {
 					rs.next();
 					progressShowID = rs.getInt("tv_show_id");
 					
-					System.out.println(progressShowID);
+					//System.out.println(progressShowID);
 					//prompts user to enter numeric entry to update the show's progress
 					//TODO: Set up enums for show progress 
 					System.out.println("Enter value you would like to update show with: \n" + "0: Not Started \n"
