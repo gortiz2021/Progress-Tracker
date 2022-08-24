@@ -1,6 +1,5 @@
 package com.cognixia.jump.model;
 
-// U model to be used later in UDAO class
 public class U {
 
 	// Variables are all based on the columns from the "user_tv_show" table
