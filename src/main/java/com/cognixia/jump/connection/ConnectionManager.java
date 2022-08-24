@@ -1,4 +1,4 @@
-//connection manager
+
 package com.cognixia.jump.connection;
 
 import java.sql.Connection;
