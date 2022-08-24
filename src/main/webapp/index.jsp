@@ -3,25 +3,13 @@
 <%@ page import="java.sql.Connection"%>
 <%@ page import="java.sql.DriverManager"%>
 
+<html>
 
 	<head>
  <!--  		<link rel="stylesheet" href="C:\JavaWorkspace\ProgressTracker\src\main\webapp\styles.css">-->
- 		<style>
-			body {
-				background-color: rgb(227, 247, 248); 
-				padding-left: 30px;
-				padding-right: 30px;
-				
-			}
-			
-			h1 {
-				border: 2px solid black;
-			  	padding: 15px;
-			  	display: flex;
-  				align-items: center;
-  				justify-content: center;
-  				
-			}
+		<style>
+		        <%@ include file="styles.css"%>
+		 </style>
 		</style>
 	</head>
 	
