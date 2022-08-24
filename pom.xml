@@ -3,6 +3,7 @@
 	<groupId>com.cognixia.jump</groupId>
 	<artifactId>ProgressTracker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>ProgressTracker</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,5 +20,61 @@
 			<version>8.0.28</version>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/jstl/jstl -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
 	</dependencies>
+	<build>
+    <finalName>Progress-Tracker</finalName>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.2.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
