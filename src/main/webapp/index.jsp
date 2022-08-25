@@ -6,8 +6,8 @@
 <html>
 
 	<head>
+	
  <!--  		<link rel="stylesheet" href="C:\JavaWorkspace\ProgressTracker\src\main\webapp\styles.css">-->
- 
  		
 		<style>
 		        <%@ include file="styles.css"%>
@@ -48,7 +48,7 @@
 					Class.forName("com.mysql.jdbc.Driver");
 					String url = "jdbc:mysql://localhost:3306/progress_tracker";
 					String username = "root";
-					String password = "root";
+					String password = "";
 					String query = "select * from tv_show";
 					Connection conn = DriverManager.getConnection(url, username, password);
 					Statement stmt = conn.createStatement();
