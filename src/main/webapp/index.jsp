@@ -6,8 +6,14 @@
 <form method="post">
 
 	<head>
+	
+	<style>
+        <%@ include file="styles.css"%>
+ 	</style>
+	
  <!--  		<link rel="stylesheet" href="C:\JavaWorkspace\ProgressTracker\src\main\webapp\styles.css">-->
- 		<style>
+ 		
+ <!--	<style>
 			body {
 				background-color: rgb(227, 247, 248); 
 				padding-left: 30px;
@@ -23,7 +29,7 @@
   				justify-content: center;
   				
 			}
-		</style>
+		</style>  -->	
 	</head>
 	
 	<body>
@@ -52,7 +58,7 @@
 					Class.forName("com.mysql.jdbc.Driver");
 					String url = "jdbc:mysql://localhost:3306/progress_tracker";
 					String username = "root";
-					String password = "root";
+					String password = "";
 					String query = "select * from tv_show";
 					Connection conn = DriverManager.getConnection(url, username, password);
 					Statement stmt = conn.createStatement();
