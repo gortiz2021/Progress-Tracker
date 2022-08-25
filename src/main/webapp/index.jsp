@@ -3,7 +3,7 @@
 <%@ page import="java.sql.Connection"%>
 <%@ page import="java.sql.DriverManager"%>
 
-<form method="post">
+<html>
 
 	<head>
 	
@@ -12,6 +12,7 @@
  	</style>
 	
  <!--  		<link rel="stylesheet" href="C:\JavaWorkspace\ProgressTracker\src\main\webapp\styles.css">-->
+<<<<<<< HEAD
  		
  <!--	<style>
 			body {
@@ -30,6 +31,10 @@
   				
 			}
 		</style>  -->	
+		<style>
+		        <%@ include file="styles.css"%>
+		 </style>
+		</style>
 	</head>
 	
 	<body>
