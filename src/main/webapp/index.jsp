@@ -6,7 +6,31 @@
 <html>
 
 	<head>
+	
+	<style>
+        <%@ include file="styles.css"%>
+ 	</style>
+	
  <!--  		<link rel="stylesheet" href="C:\JavaWorkspace\ProgressTracker\src\main\webapp\styles.css">-->
+<<<<<<< HEAD
+ 		
+ <!--	<style>
+			body {
+				background-color: rgb(227, 247, 248); 
+				padding-left: 30px;
+				padding-right: 30px;
+				
+			}
+			
+			h1 {
+				border: 2px solid black;
+			  	padding: 15px;
+			  	display: flex;
+  				align-items: center;
+  				justify-content: center;
+  				
+			}
+		</style>  -->	
 		<style>
 		        <%@ include file="styles.css"%>
 		 </style>
@@ -39,7 +63,7 @@
 					Class.forName("com.mysql.jdbc.Driver");
 					String url = "jdbc:mysql://localhost:3306/progress_tracker";
 					String username = "root";
-					String password = "root";
+					String password = "";
 					String query = "select * from tv_show";
 					Connection conn = DriverManager.getConnection(url, username, password);
 					Statement stmt = conn.createStatement();
