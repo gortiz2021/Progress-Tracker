@@ -7,14 +7,23 @@
 
 	<head>
  <!--  		<link rel="stylesheet" href="C:\JavaWorkspace\ProgressTracker\src\main\webapp\styles.css">-->
+ 
+ 		
 		<style>
 		        <%@ include file="styles.css"%>
 		 </style>
-		</style>
 	</head>
 	
 	<body>
 	
+		
+		
+		<ul>
+		  <li><a href="./">Home</a></li>
+	
+		  <li><a href="login.jsp">Login</a></li>
+		</ul>
+		
 		<h1>TeleTimeline</h1>
 		
 		<p>Test paragraph</p>
