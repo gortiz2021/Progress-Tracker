@@ -22,6 +22,7 @@
 		  <li><a href="./">Home</a></li>
 	
 		  <li><a href="login.jsp">Login</a></li>
+		  <li><a href="signin.jsp">Sign Up</a></li>
 		</ul>
 		
 		<h1>TeleTimeline</h1>

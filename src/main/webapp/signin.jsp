@@ -10,13 +10,12 @@
 
 
 	<ul>
-	  <li><a href="signin.jsp">Don't have an account? Sign Up for free today!</a></li>
+	  <li><a href="login.jsp">Already have an account? Login here!</a></li>
 	</ul>
 
-    <h1>Login</h1>
-    <form @submit.prevent="login">
+    <h1>Sign Up... It's Free :)</h1>
+    <form @submit.prevent="signin">
         <fieldset>
-            <legend>Login Required</legend>
 
 
 
@@ -32,8 +31,10 @@
 
 
 
-            <input type="submit" value="Login">
+            <input type="submit" value="Sign Up">
         </fieldset>
     </form>
-    </body>
+
+
+</body>
 </html>
